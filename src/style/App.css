@@ -23,6 +23,20 @@
   color: #61dafb;
 }
 
+.apexcharts-canvas {
+  width: 100vw !important;
+}
+
+#chartWrapper {
+  position: absolute;
+  height: 50vh;
+  top: 0;
+  width: 100vw;
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
