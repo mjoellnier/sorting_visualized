@@ -1,4 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+const generateRandomNumbers = amount => {
+  let numberArray = [...Array(amount).keys()];
+
+  for (let i = numberArray.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * i);
+    const temp = numberArray[i];
+    numberArray[i] = numberArray[j];
+    numberArray[j] = temp;
+  }
+
+  return numberArray;
+};
 
 const getHorizontalPosition = (amount, position) => {
   return position * (100 / amount);
@@ -13,38 +26,43 @@ const getHeight = (value, amount) => {
 };
 
 const BarCreator = props => {
+  const [numbers, setNumbers] = useState([]);
+
+  useEffect(() => {
+    setNumbers(props.numbers);
+  }, [props.numbers]);
+
   return (
     <svg
-      class="chart"
+      className="chart"
       width="100%"
       height="100%"
       aria-labelledby="title desc"
       role="img"
     >
-      {props.numbers.map((item, key) => {
-        return (
-          <g class="bar">
-            <rect
-              width={getWidth(props.amount)}
-              height={getHeight(item, props.amount)}
-              y="0%"
-              x={getHorizontalPosition(props.amount, key) + "%"}
-            ></rect>
-          </g>
-        );
-      })}
-      {/* <g class="bar">
-        <rect width="20%" height="30" y="0" x="20%"></rect>
-      </g>
-      <g class="bar">
-        <rect width="20%" height="60" y="0" x="40%"></rect>
-      </g>
-      <g class="bar">
-        <rect width="20%" height="34" y="0" x="60%"></rect>
-      </g>
-      <g class="bar">
-        <rect width="20%" height="90" y="0" x="80%"></rect>
-      </g> */}
+      {numbers
+        ? Object.values(numbers).map((item, key) => {
+            return (
+              <g className="bar">
+                <rect
+                  width={getWidth(props.amount)}
+                  height={getHeight(item.value, props.amount)}
+                  fill={props.highlight === key ? "green" : "black"}
+                  y="0%"
+                  x={getHorizontalPosition(props.amount, key) + "%"}
+                >
+                  <animate
+                    attributeName="height"
+                    from="0"
+                    to={getHeight(item.value, props.amount)}
+                    dur="0.5s"
+                    fill="freeze"
+                  />
+                </rect>
+              </g>
+            );
+          })
+        : null}
     </svg>
   );
 };
