@@ -30,6 +30,7 @@ const BarCreator = props => {
 
   useEffect(() => {
     setNumbers(props.numbers);
+    if (props.numbers) console.log(props.numbers[10]);
   }, [props.numbers]);
 
   return (
@@ -47,7 +48,9 @@ const BarCreator = props => {
                 <rect
                   width={getWidth(props.amount)}
                   height={getHeight(item.value, props.amount)}
-                  fill={props.highlight === key ? "green" : "black"}
+                  fill={
+                    item.selected ? (item.found ? "green" : "yellow") : "black"
+                  }
                   y="0%"
                   x={getHorizontalPosition(props.amount, key) + "%"}
                 >

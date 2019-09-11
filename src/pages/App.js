@@ -1,24 +1,51 @@
-import React from "react";
+import React from "reactn";
 import BarCreator from "../components/chartCreator";
 import "../style/App.css";
+import { LinearSearch } from "../components/linearSearch";
 
 let amount = 100;
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      numbers: null,
-      selected: 0
-    };
   }
 
   componentDidMount() {
     this.generateRandomNumbers(amount);
-    setInterval(() => {
-      this.setState({ selected: this.state.selected + 1 });
-    }, 500);
+    // setInterval(() => {
+    //   this.setState({ selected: this.state.selected + 1 });
+    // }, 500);
   }
+
+  doLinearSearch = (startIndex, target, backup) => {
+    setTimeout(() => {
+      if (this.global.numbers[startIndex].value == target) {
+        this.setGlobal({
+          numbers: {
+            ...backup,
+            [startIndex]: {
+              value: this.global.numbers[startIndex].value,
+              selected: true,
+              found: true
+            }
+          }
+        });
+        return;
+      } else {
+        this.setGlobal({
+          numbers: {
+            ...backup,
+            [startIndex]: {
+              value: this.global.numbers[startIndex].value,
+              selected: true,
+              found: false
+            }
+          }
+        });
+        this.doLinearSearch(startIndex + 1, target, backup);
+      }
+    }, 100);
+  };
 
   generateRandomNumbers = amount => {
     let numberArray = [...Array(amount).keys()];
@@ -34,11 +61,11 @@ class App extends React.Component {
     numberArray.map((key, value) => {
       tempNumbers = {
         ...tempNumbers,
-        [key]: { value: value, selected: false }
+        [key]: { value: value, selected: false, found: false }
       };
     });
 
-    this.setState({ numbers: { ...tempNumbers } });
+    this.setGlobal({ numbers: { ...tempNumbers } });
   };
 
   render() {
@@ -46,8 +73,18 @@ class App extends React.Component {
       <div className="App">
         <BarCreator
           amount={amount}
-          numbers={this.state.numbers}
-          highlight={this.state.selected}
+          numbers={this.global.numbers}
+          highlight={this.global.selected}
+        />
+        <input
+          value="Find the number 4"
+          type="button"
+          onClick={() => this.doLinearSearch(0, 4, this.global.numbers)}
+        />
+        <input
+          value="Shuffle Numbers!"
+          type="button"
+          onClick={() => this.generateRandomNumbers(amount)}
         />
       </div>
     );
