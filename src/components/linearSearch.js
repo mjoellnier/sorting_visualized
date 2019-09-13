@@ -39,6 +39,33 @@ const LinearSearch = props => {
   return (
     <div className="App">
       <BarCreator amount={amount} numbers={numbers} />
+      <div>
+        <h2>Linear Search</h2>
+        <div className="text">
+          <p>
+            Linear Search is one of the slowest if not the slowest search
+            algorithm. Each item in an unsorted array is passed sequentally and
+            checked against the target value. The time complexity of the
+            algorithm is therefore O(n). Linear search is rarely used
+            practically because other search algorithms such as the binary
+            search algorithm and hash tables allow significantly faster
+            searching comparison to Linear search.
+          </p>
+          <p>
+            <b>Pros:</b>
+            <ul>
+              <li>Very easy to implement</li>
+              <li>No sorting is necessary prior searching </li>
+            </ul>
+          </p>
+          <p>
+            <b>Cons:</b>
+            <ul>
+              <li>Bad time complexity O(n)</li>
+            </ul>
+          </p>
+        </div>
+      </div>
       <input
         value="Find the number 4"
         type="button"

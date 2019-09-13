@@ -23,7 +23,7 @@ const BarCreator = props => {
     <svg
       className="chart"
       width="100%"
-      height="100%"
+      height="20%"
       aria-labelledby="title desc"
       role="img"
     >
@@ -35,7 +35,11 @@ const BarCreator = props => {
                   width={getWidth(props.amount)}
                   height={getHeight(item.value, props.amount)}
                   fill={
-                    item.selected ? (item.found ? "green" : "yellow") : "black"
+                    item.selected
+                      ? item.found
+                        ? "#4d8621"
+                        : "#625b1a"
+                      : "#303d6c"
                   }
                   y="0%"
                   x={getHorizontalPosition(props.amount, key) + "%"}
