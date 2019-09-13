@@ -1,18 +1,5 @@
 import React, { useState, useEffect } from "react";
 
-const generateRandomNumbers = amount => {
-  let numberArray = [...Array(amount).keys()];
-
-  for (let i = numberArray.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * i);
-    const temp = numberArray[i];
-    numberArray[i] = numberArray[j];
-    numberArray[j] = temp;
-  }
-
-  return numberArray;
-};
-
 const getHorizontalPosition = (amount, position) => {
   return position * (100 / amount);
 };
@@ -30,7 +17,6 @@ const BarCreator = props => {
 
   useEffect(() => {
     setNumbers(props.numbers);
-    if (props.numbers) console.log(props.numbers[10]);
   }, [props.numbers]);
 
   return (
@@ -44,7 +30,7 @@ const BarCreator = props => {
       {numbers
         ? Object.values(numbers).map((item, key) => {
             return (
-              <g className="bar">
+              <g className="bar" key={key}>
                 <rect
                   width={getWidth(props.amount)}
                   height={getHeight(item.value, props.amount)}
