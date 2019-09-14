@@ -1,11 +1,18 @@
-import React from "reactn";
+import React, { useEffect, useGlobal } from "reactn";
+import NavBar from "../components/navBar";
 import "../style/App.css";
-import LinearSearch from "../components/linearSearch";
 
 const App = () => {
+  const [viewPage, setViewPage] = useGlobal("page");
+
+  useEffect(() => {
+    // console.log("page ", page);
+  }, [viewPage]);
+
   return (
     <div className="App">
-      <LinearSearch />
+      <NavBar />
+      {viewPage}
     </div>
   );
 };
