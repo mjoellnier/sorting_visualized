@@ -37,9 +37,9 @@ const BarCreator = props => {
                   fill={
                     item.selected
                       ? item.found
-                        ? "#4d8621"
-                        : "#625b1a"
-                      : "#303d6c"
+                        ? props.fillFound
+                        : props.fillSelected
+                      : props.fillNonSelected
                   }
                   y="0%"
                   x={getHorizontalPosition(props.amount, key) + "%"}

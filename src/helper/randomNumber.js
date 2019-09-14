@@ -12,7 +12,7 @@ export const generateRandomNumbers = async amount => {
   numberArray.forEach((key, value) => {
     tempNumbers = {
       ...tempNumbers,
-      [key]: { value: value, selected: false, found: false }
+      [key + 1]: { value: value + 1, selected: false, found: false }
     };
   });
 

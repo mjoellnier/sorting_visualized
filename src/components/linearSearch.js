@@ -1,10 +1,16 @@
-import React, { useState, useEffect } from "react";
+import RNI from "@deberoppa/react-numeric-input";
+import React, { useEffect, useState } from "react";
+import InputRange from "react-input-range";
+import "react-input-range/lib/css/index.css";
 import BarCreator from "../components/chartCreator";
 import { generateRandomNumbers } from "../helper/randomNumber";
 
-let amount = 100;
-
 const LinearSearch = props => {
+  const [numbers, setNumbers] = useState({});
+  const [targetNumber, setTargetNumber] = useState(1);
+  const [numberRange, setNumberRange] = useState(100);
+  const [sliderValue, setSliderValue] = useState(100);
+
   const doLinearSearch = (startIndex, target, backup) => {
     setTimeout(() => {
       if (numbers[startIndex].value === target) {
@@ -30,17 +36,65 @@ const LinearSearch = props => {
       }
     }, 100);
   };
-  const [numbers, setNumbers] = useState({});
 
   useEffect(() => {
-    generateRandomNumbers(amount).then(numbers => setNumbers(numbers));
-  }, []);
+    generateRandomNumbers(numberRange).then(numbers => setNumbers(numbers));
+  }, [numberRange]);
 
   return (
-    <div className="App">
-      <BarCreator amount={amount} numbers={numbers} />
+    <div className="App" id="linearSearch">
+      <BarCreator
+        amount={numberRange}
+        numbers={numbers}
+        fillNonSelected="#303d6c"
+        fillSelected="#625b1a"
+        fillFound="#4d8621"
+      />
       <div>
         <h2>Linear Search</h2>
+        <div className="controls">
+          <div>
+            <div>
+              <p>Number Pool:</p>
+              <InputRange
+                maxValue={250}
+                minValue={2}
+                value={sliderValue}
+                onChange={value => setSliderValue(value)}
+                onChangeComplete={value => setNumberRange(value)}
+              />
+            </div>
+          </div>
+          <div>
+            <div>
+              <RNI
+                className="rangeInput"
+                min={1}
+                max={numberRange}
+                value={targetNumber}
+                onChange={value => setTargetNumber(value)}
+              />
+            </div>
+          </div>
+          <div>
+            <input
+              value={"Find the number " + targetNumber}
+              type="button"
+              onClick={() => doLinearSearch(1, targetNumber, numbers)}
+            />
+          </div>
+          <div>
+            <input
+              value="Shuffle Numbers!"
+              type="button"
+              onClick={() =>
+                generateRandomNumbers(numberRange).then(numbers =>
+                  setNumbers(numbers)
+                )
+              }
+            />
+          </div>
+        </div>
         <div className="text">
           <p>
             Linear Search is one of the slowest if not the slowest search
@@ -51,33 +105,17 @@ const LinearSearch = props => {
             search algorithm and hash tables allow significantly faster
             searching comparison to Linear search.
           </p>
-          <p>
-            <b>Pros:</b>
-            <ul>
-              <li>Very easy to implement</li>
-              <li>No sorting is necessary prior searching </li>
-            </ul>
-          </p>
-          <p>
-            <b>Cons:</b>
-            <ul>
-              <li>Bad time complexity O(n)</li>
-            </ul>
-          </p>
+          <b>Pros:</b>
+          <ul>
+            <li>Very easy to implement</li>
+            <li>No sorting is necessary prior searching </li>
+          </ul>
+          <b>Cons:</b>
+          <ul>
+            <li>Bad time complexity O(n)</li>
+          </ul>
         </div>
       </div>
-      <input
-        value="Find the number 4"
-        type="button"
-        onClick={() => doLinearSearch(0, 4, numbers)}
-      />
-      <input
-        value="Shuffle Numbers!"
-        type="button"
-        onClick={() =>
-          generateRandomNumbers(amount).then(numbers => setNumbers(numbers))
-        }
-      />
     </div>
   );
 };
