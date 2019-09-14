@@ -3,11 +3,9 @@ import NavBar from "../components/navBar";
 import "../style/App.css";
 
 const App = () => {
-  const [viewPage, setViewPage] = useGlobal("page");
+  const [viewPage] = useGlobal("page");
 
-  useEffect(() => {
-    // console.log("page ", page);
-  }, [viewPage]);
+  useEffect(() => {}, [viewPage]);
 
   return (
     <div className="App">

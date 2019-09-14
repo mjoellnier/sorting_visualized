@@ -1,7 +1,6 @@
 import React, { useGlobal } from "reactn";
-import BarCreator from "./chartCreator";
-import LinearSearch from "./linearSearch";
 import BinarySearch from "./binarySearch";
+import LinearSearch from "./linearSearch";
 
 const NavBar = props => {
   const [viewPage, setViewPage] = useGlobal("page");

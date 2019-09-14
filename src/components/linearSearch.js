@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
 import BarCreator from "../components/chartCreator";
-import { generateRandomNumbers } from "../helper/randomNumber";
+import { generateRandomNumbers } from "../helper/numberGenerator";
 
 const LinearSearch = props => {
   const [numbers, setNumbers] = useState({});

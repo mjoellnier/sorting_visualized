@@ -39,6 +39,8 @@ const BarCreator = props => {
                       ? item.found
                         ? props.fillFound
                         : props.fillSelected
+                      : item.grayedOut
+                      ? props.fillGrayedOut
                       : props.fillNonSelected
                   }
                   y="0%"
